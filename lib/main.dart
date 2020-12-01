@@ -1,3 +1,4 @@
+import 'package:Jonathan_Denard/screens/home.dart';
 import 'package:Jonathan_Denard/screens/startup.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         //primaryColor: Colors.white,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: StartupScreen(),
+      home: HomeScreen(),
       
     );
   }
