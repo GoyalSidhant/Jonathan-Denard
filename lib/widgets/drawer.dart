@@ -1,4 +1,6 @@
+import 'package:Jonathan_Denard/screens/profile.dart';
 import 'package:Jonathan_Denard/screens/startup.dart';
+import 'package:Jonathan_Denard/screens/support.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -41,6 +43,9 @@ class CustomDrawer extends StatelessWidget {
           ),
           SizedBox(height: 10),
           ListTile(
+            onTap: (){
+              Navigator.pop(context);
+            },
             title: Text('Home',
                 style: TextStyle(
                     fontSize: 20,
@@ -53,6 +58,12 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()),
+              );
+            },
             title: Text('Profile',
                 style: TextStyle(
                     fontSize: 20,
@@ -77,6 +88,12 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SupportScreen()),
+              );
+            },
             title: Text('Support',
                 style: TextStyle(
                     fontSize: 20,
@@ -89,9 +106,9 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.42,
-                ),
-           ListTile(
+            height: MediaQuery.of(context).size.height * 0.42,
+          ),
+          ListTile(
             title: Text('Logout',
                 style: TextStyle(
                     fontSize: 20,
@@ -104,7 +121,6 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
-          
         ],
       ),
     );

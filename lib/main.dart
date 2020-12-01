@@ -1,5 +1,4 @@
 import 'package:Jonathan_Denard/screens/home.dart';
-import 'package:Jonathan_Denard/screens/startup.dart';
 import 'package:flutter/material.dart';
 
 void main() {
