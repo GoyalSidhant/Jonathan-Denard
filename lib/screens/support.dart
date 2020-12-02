@@ -107,7 +107,7 @@ class _SupportScreenState extends State<SupportScreen> {
               child: Container(
                 height: height /4.5,
                 width: width,
-                color: Color(0xffef4f4e),
+                color: Color(0xffffc10e),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(

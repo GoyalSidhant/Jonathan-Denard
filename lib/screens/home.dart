@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: Theme(
         data: Theme.of(context).copyWith(
           canvasColor:
-              Color(0xffef4f4e), //This will change the drawer background to blue.
+              Color(0xff14345e), //This will change the drawer background to blue.
         ),
         child: CustomDrawer()
       ),
