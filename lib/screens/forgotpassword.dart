@@ -1,3 +1,4 @@
+import 'package:Jonathan_Denard/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
@@ -26,6 +27,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               clipper: WaveClipperTwo(reverse: true),
               child: Container(
                 height: height / 3,
+                width: width,
                 color: Color(0xff14345e),
               ),
             ),
@@ -60,7 +62,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   SizedBox(height: 5),
                   Center(
                       child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                      );
+                    },
                     child: Text(
                       "Submit ",
                       style: TextStyle(

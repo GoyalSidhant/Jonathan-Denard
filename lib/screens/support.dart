@@ -19,7 +19,7 @@ class _SupportScreenState extends State<SupportScreen> {
           "Jonathan Denard Pro",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color(0xffef4f4e),
+        backgroundColor: Color(0xffffc10e),
         actions: [
           IconButton(
               icon: Icon(
@@ -86,15 +86,17 @@ class _SupportScreenState extends State<SupportScreen> {
                   Divider(),
                   Center(
                       child: Image.asset(
-                          'assets/jonathan_denard_app_profile_icon.png' , height: 50,color: Colors.grey,)),
-                   Center(
+                    'assets/jonathan_denard_app_profile_icon.png',
+                    height: 50,
+                    color: Colors.grey,
+                  )),
+                  Center(
                       child: Text("Jonathan Denard",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Color(0xffef4f4e),
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold
-                          )))
+                              color: Color(0xffef4f4e),
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold)))
                 ],
               ),
             ),
@@ -105,7 +107,7 @@ class _SupportScreenState extends State<SupportScreen> {
             child: ClipPath(
               clipper: WaveClipperTwo(),
               child: Container(
-                height: height /4.5,
+                height: height / 4.5,
                 width: width,
                 color: Color(0xffffc10e),
                 child: Padding(

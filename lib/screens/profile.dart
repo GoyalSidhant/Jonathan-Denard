@@ -41,7 +41,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: height / 4),
-                    Center(child: Icon(Icons.person , size: 100, color: Color(0xffef4f4e),)),
+                    Center(
+                        child: Icon(
+                      Icons.person,
+                      size: 100,
+                      color: Color(0xffef4f4e),
+                    )),
                     SizedBox(height: 10),
                     Text(
                         "Whether you have a question about a missing file,a feature, pricing or anything else, we’ll help you resolve your issues quickly and easily, getting you back to more importan things, like relaxing on your new sofa.",
@@ -51,17 +56,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           fontSize: 15,
                         )),
                     SizedBox(height: 20),
-                    Center(child: Text("Your Email" , textAlign: TextAlign.center, style: TextStyle(color: Colors.grey , fontSize: 20  , ))),
-                  SizedBox(height:5),
-                  
-                  SizedBox(height:5),
-                  Center(child: Text("Your Password" , textAlign: TextAlign.center, style: TextStyle(color: Colors.grey , fontSize: 20  , ))),
-                  SizedBox(height:5),
-                  
-                   SizedBox(height:5),
-                  Center(child: InkWell(
-                      onTap: (){},
-                      child: Text("Edit Profile -> " , style: TextStyle(color: Color(0xffef4f4e) , fontSize: 20 , fontWeight: FontWeight.bold), ),
+                    Center(
+                        child: Text("Your Email",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 20,
+                            ))),
+                    SizedBox(height: 5),
+                    SizedBox(height: 5),
+                    Center(
+                        child: Text("Your Password",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 20,
+                            ))),
+                    SizedBox(height: 5),
+                    SizedBox(height: 5),
+                    Center(
+                        child: InkWell(
+                      onTap: () {},
+                      child: Text(
+                        "Edit Profile -> ",
+                        style: TextStyle(
+                            color: Color(0xffef4f4e),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ))
                   ],
                 ),
@@ -94,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: Colors.white,
                             fontSize: 12,
                           )),
-                           Text("Nevermind . You know about it already !",
+                      Text("Nevermind . You know about it already !",
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Colors.white,
@@ -106,7 +128,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           )),
-          
         ],
       ),
     );

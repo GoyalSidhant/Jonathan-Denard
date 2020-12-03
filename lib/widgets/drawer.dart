@@ -12,7 +12,6 @@ class CustomDrawer extends StatelessWidget {
         children: [
           Container(
               height: 150,
-              decoration: BoxDecoration(color: Color(0xffef4f4e)),
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: IconButton(
@@ -106,7 +105,7 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.42,
+            height: MediaQuery.of(context).size.height * 0.34,
           ),
           ListTile(
             title: Text('Logout',

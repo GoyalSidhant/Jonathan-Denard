@@ -1,4 +1,4 @@
-import 'package:Jonathan_Denard/screens/login.dart';
+import 'package:Jonathan_Denard/screens/login_options.dart';
 import 'package:flutter/material.dart';
 
 class StartupScreen extends StatefulWidget {
@@ -10,7 +10,7 @@ class _StartupScreenState extends State<StartupScreen> {
   void autoLogin() {
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => LoginScreen()),
+          MaterialPageRoute(builder: (context) => LoginOption()),
           (Route<dynamic> route) => false);
     });
   }

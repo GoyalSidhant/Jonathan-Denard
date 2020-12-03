@@ -1,5 +1,6 @@
 import 'package:Jonathan_Denard/widgets/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:Jonathan_Denard/global.dart' as global;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -48,33 +50,38 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: () {},
           shape: CircleBorder(
               side: BorderSide(color: Color(0xffef4f4e), width: 4.0)),
-          child: Image.asset(
-            'assets/jonathan_denard_app_home_icon.png',
-            height: 120,
-            width: 120,
-          ),
+          child: global.role == "Client"
+              ? Image.asset(
+                  'assets/jonathan_denard_app_home_icon.png',
+                  height: 120,
+                  width: 120,
+                )
+              : Icon(
+                  Icons.add,
+                  size: 50,
+                  color: Color(0xffef4f4e),
+                ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       drawer: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor:
-              Color(0xff14345e), //This will change the drawer background to blue.
-        ),
-        child: CustomDrawer()
-      ),
+          data: Theme.of(context).copyWith(
+            canvasColor: Color(
+                0xff14345e), //This will change the drawer background to blue.
+          ),
+          child: CustomDrawer()),
       body: Stack(
         children: [
           Container(
             height: height,
+            width: width,
             decoration: BoxDecoration(
                 color: Color(0xff14345e),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(50),
-                    bottomRight: Radius.circular(50))),
+                ),
           ),
           Container(
             height: height / 1.25,
+            width: width,
             alignment: Alignment.topLeft,
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -123,11 +130,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   Divider(),
                   SizedBox(height: 15),
                   Container(
-                    height: height / 1.85,
+                    height: height / 2,
                     child: ListView(
                       scrollDirection: Axis.vertical,
                       children: [
                         ListTile(
+                          onTap: (){},
                           leading: Icon(Icons.folder),
                           title: Text("client 1"),
                           trailing: Icon(Icons.more_vert),
