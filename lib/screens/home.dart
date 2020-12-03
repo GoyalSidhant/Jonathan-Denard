@@ -1,3 +1,4 @@
+import 'package:Jonathan_Denard/screens/addfile.dart';
 import 'package:Jonathan_Denard/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:Jonathan_Denard/global.dart' as global;
@@ -47,7 +48,14 @@ class _HomeScreenState extends State<HomeScreen> {
         width: 100.0,
         child: FloatingActionButton(
           backgroundColor: Colors.white,
-          onPressed: () {},
+          onPressed: () {
+            global.role != "Client"
+                ? Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddFile()),
+                  )
+                : null;
+          },
           shape: CircleBorder(
               side: BorderSide(color: Color(0xffef4f4e), width: 4.0)),
           child: global.role == "Client"
@@ -57,10 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 120,
                 )
               : Icon(
-                  Icons.add,
-                  size: 50,
-                  color: Color(0xffef4f4e),
-                ),
+                    Icons.add,
+                    size: 50,
+                    color: Color(0xffef4f4e),
+                  ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -76,8 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
             height: height,
             width: width,
             decoration: BoxDecoration(
-                color: Color(0xff14345e),
-                ),
+              color: Color(0xff14345e),
+            ),
           ),
           Container(
             height: height / 1.25,
@@ -135,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.vertical,
                       children: [
                         ListTile(
-                          onTap: (){},
+                          onTap: () {},
                           leading: Icon(Icons.folder),
                           title: Text("client 1"),
                           trailing: Icon(Icons.more_vert),
