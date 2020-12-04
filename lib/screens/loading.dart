@@ -8,7 +8,7 @@ class Loading extends StatelessWidget {
           gradient: LinearGradient(
               begin: Alignment.bottomLeft,
               end: Alignment.topRight,
-              colors: [Color(0xff52caf4), Color(0xff3080ed)])),
+              colors: [Color(0xff14345e), Color(0xff14345e)])),
       child: Center(
           child: SpinKitRing(
             color: Colors.white,
