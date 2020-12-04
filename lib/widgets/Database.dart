@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:Jonathan_Denard/global.dart'as global;
 
 class DatabaseService {
   final String uid;
@@ -23,11 +24,21 @@ class DatabaseService {
   }
 
   Future updateData(String fullName, String email, String password) async {
-    return await admin.document(uid).setData({
+    return await admin.document(uid).setData(<String,dynamic>{
       'fullName': fullName,
       'email': email,
       'password': password,
       'JoinDate': getCurrentDate(),
+    });
+  }
+  Future updateAdmin(String fullname,String email,String Role)async{
+    print(global.uid);
+    print(Role);
+    print(email);
+    print(fullname);
+    return await Firestore.instance.collection(Role).document(global.uid).updateData(<String,dynamic>{
+      'fullName':fullname,
+      'email':email,
     });
   }
   Future<QuerySnapshot> getUserData(String email,String Role) async {

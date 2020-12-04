@@ -9,7 +9,18 @@ class AuthService {
     return (user != null) ? User(uid: user.uid) : null;
   }
 
-
+  Future<String> resetEmail(String newEmail) async {
+    String message='';
+    FirebaseUser firebaseUser = await _auth.currentUser();
+    firebaseUser
+        .updateEmail(newEmail)
+        .then(
+          (value) => message = 'Success',
+    )
+        .catchError((e) => message = 'error');
+    print(message);
+    return message;
+  }
   // sign in with email and password
   Future signInWithEmailAndPassword(String email, String password) async {
     try {

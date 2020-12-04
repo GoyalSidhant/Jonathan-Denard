@@ -29,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
           .signInWithEmailAndPassword(email.text, password.text)
           .then((result) async {
         if (result != null) {
+
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => HomeScreen()));

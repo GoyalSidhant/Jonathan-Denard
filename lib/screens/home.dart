@@ -2,13 +2,87 @@ import 'package:Jonathan_Denard/screens/addfile.dart';
 import 'package:Jonathan_Denard/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:Jonathan_Denard/global.dart' as global;
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:Jonathan_Denard/widgets/firebaseuser.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final CollectionReference admin =
+  Firestore.instance.collection('admin');
+  final CollectionReference client =
+  Firestore.instance.collection('client');
+  UserFirebase curruser;
+  List<UserFirebase> users = [];
+  List<UserFirebase> staffs = [];
+  List<String>docum=[];
+  void  getadmindetials() async {
+    QuerySnapshot staff = await admin.getDocuments();
+    print("admin Details");
+    print(staff.documents[0].data.toString());
+    setState(() {
+      staffs =
+          staff.documents.map((doc) => UserFirebase.fromDocument(doc)).toList();
+    });
+    staff.documents.forEach((result) {
+      setState(() {
+        print(result.data['fullName']);
+        String s=result.data['fullName'].toString()+'_'+result.documentID;
+        docum.add(s);
+      });
+    });
+    global.doc=docum;
+
+    List<UserFirebase> data =
+    staffs.where((row) => (row.email.contains(global.email))).toList();
+    curruser = data[0];
+      global.name = curruser.fullName;
+    QuerySnapshot q=await admin.where('email', isEqualTo: global.email).getDocuments();
+    global.uid=q.documents[0].documentID;
+  }
+
+  void getclient() async {
+    QuerySnapshot sec = await client.getDocuments();
+    print(sec.documents[0].data.toString());
+    setState(() {
+      users =
+          sec.documents.map((doc) => UserFirebase.fromDocument(doc)).toList();
+    });
+    QuerySnapshot staff = await admin.getDocuments();
+    print(staff.documents[0].data.toString());
+    setState(() {
+      staffs =
+          staff.documents.map((doc) => UserFirebase.fromDocument(doc)).toList();
+    });
+    staff.documents.forEach((result) {
+      setState(() {
+        print(result.data['fullName']);
+        String s=result.data['fullName'].toString()+'_'+result.documentID;
+        print(s);
+        docum.add(s);
+      });
+    });
+    global.doc=docum;
+   // global.staff = staffs;
+    List<UserFirebase> data =
+    users.where((row) => (row.email.contains(global.email))).toList();
+    curruser = data[0];
+      global.name = curruser.fullName;
+      print('NAME');
+      print(global.name);
+    QuerySnapshot q=await client.where('email', isEqualTo: global.email).getDocuments();
+    global.uid=q.documents[0].documentID;
+
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(global.role);
+    global.role=='admin'?getadmindetials():getclient();
+  }
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

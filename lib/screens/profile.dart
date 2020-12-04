@@ -1,6 +1,7 @@
+import 'package:Jonathan_Denard/screens/edit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-
+import 'package:Jonathan_Denard/global.dart'as global;
 class ProfileScreen extends StatefulWidget {
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -57,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         )),
                     SizedBox(height: 20),
                     Center(
-                        child: Text("Your Email",
+                        child: Text(global.name,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.grey,
@@ -66,7 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(height: 5),
                     SizedBox(height: 5),
                     Center(
-                        child: Text("Your Password",
+                        child: Text(global.email,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.grey,
@@ -76,7 +77,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     SizedBox(height: 5),
                     Center(
                         child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => editScreen(),
+                              //builder: (context) => BottomBar()
+                            ));
+                      },
                       child: Text(
                         "Edit Profile -> ",
                         style: TextStyle(

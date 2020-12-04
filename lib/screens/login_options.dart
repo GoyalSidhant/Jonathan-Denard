@@ -41,7 +41,7 @@ class _LoginOptionState extends State<LoginOption> {
                     borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: Colors.white)),
                 onPressed: () {
-                  global.role = "Graphic";
+                  global.role = "admin";
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -74,7 +74,7 @@ class _LoginOptionState extends State<LoginOption> {
                     borderRadius: BorderRadius.circular(18.0),
                     side: BorderSide(color: Colors.white)),
                 onPressed: () {
-                  global.role = "Client";
+                  global.role = "client";
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

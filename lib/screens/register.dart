@@ -163,6 +163,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               fontSize: 20,
                             ))),
                   ),
+
                   SizedBox(height: 5),
                   Center(child: TextFormField(
                     style: TextStyle(color: Colors.black),
@@ -189,6 +190,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                       )
 
+                  ),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    style: TextStyle(color: Colors.white),
+                    onChanged: (val){
+                      setState(() {
+                        fullName=val;
+                        //global.name = val;
+                        //print(global.name);
+                      });
+                    },
+                    decoration: InputDecoration(
+                      labelText: "First Name",
+                      contentPadding: EdgeInsets.all(8),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                        const BorderSide(color: Colors.white, width: 2.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 5),
                   Center(
