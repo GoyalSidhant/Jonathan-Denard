@@ -5,6 +5,8 @@ import 'package:Jonathan_Denard/global.dart' as global;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Jonathan_Denard/widgets/firebaseuser.dart';
 class HomeScreen extends StatefulWidget {
+  int i;
+  HomeScreen({this.i=0});
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -39,9 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
     List<UserFirebase> data =
     staffs.where((row) => (row.email.contains(global.email))).toList();
     curruser = data[0];
+    if(widget.i==0){
       global.name = curruser.fullName;
-    QuerySnapshot q=await admin.where('email', isEqualTo: global.email).getDocuments();
-    global.uid=q.documents[0].documentID;
+      QuerySnapshot q=await admin.where('email', isEqualTo: global.email).getDocuments();
+      global.uid=q.documents[0].documentID;}
+
   }
 
   void getclient() async {
@@ -70,11 +74,13 @@ class _HomeScreenState extends State<HomeScreen> {
     List<UserFirebase> data =
     users.where((row) => (row.email.contains(global.email))).toList();
     curruser = data[0];
+    if(widget.i==0){
       global.name = curruser.fullName;
+      QuerySnapshot q=await client.where('email', isEqualTo: global.email).getDocuments();
+      global.uid=q.documents[0].documentID;}
       print('NAME');
       print(global.name);
-    QuerySnapshot q=await client.where('email', isEqualTo: global.email).getDocuments();
-    global.uid=q.documents[0].documentID;
+
 
   }
   @override
@@ -176,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Hi, Stéphanie",
+                  Text("Hi"+","+global.name,
                       style: TextStyle(
                           color: Color(0xffef4f4e),
                           fontSize: 30,

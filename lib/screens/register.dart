@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:Jonathan_Denard/widgets/User.dart';
 import 'package:Jonathan_Denard/widgets/Database.dart';
 import 'package:Jonathan_Denard/screens/loading.dart';
+import 'package:Jonathan_Denard/global.dart' as global;
 class RegisterScreen extends StatefulWidget {
   final String role;
   RegisterScreen({this.role});
@@ -39,6 +40,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
+      global.email=email;
+      global.uid=user.uid;
 
       // Create a new document for the user with uid
       if(widget.role=='admin'){
@@ -75,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           //         builder: (context) => BottomBar(i:1)));
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            MaterialPageRoute(builder: (context) => HomeScreen(i:1)),
           );
         } else {
           setState(() {
@@ -197,7 +200,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onChanged: (val){
                       setState(() {
                         fullName=val;
-                        //global.name = val;
+                        global.name = val;
                         //print(global.name);
                       });
                     },
