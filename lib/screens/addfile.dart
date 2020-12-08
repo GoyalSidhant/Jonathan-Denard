@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:Jonathan_Denard/widgets/Database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,13 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:uuid/uuid.dart';
-
+import 'package:searchable_dropdown/searchable_dropdown.dart';
+import 'package:Jonathan_Denard/global.dart'as global;
 class AddFile extends StatefulWidget {
   @override
   _AddFileState createState() => _AddFileState();
 }
 
 class _AddFileState extends State<AddFile> {
+  TextEditingController staff = TextEditingController();
+  String ID;
   FileType _pickingType = FileType.any;
   String fileID = Uuid().v4();
   final DateTime timestamp = DateTime.now();
@@ -69,14 +73,15 @@ class _AddFileState extends State<AddFile> {
   void handleSubmit() async {
     print(file.path.toString());
     String mediaURL = await uploadFile(file);
-    filesCollection.document(fileID).setData({
+    filesCollection.document(fileID).setData(<String,dynamic>{
       "fileID": fileID,
       "mediaURL": mediaURL,
       "name": filename.text,
-      "clientName": "hello",
+      "clientName": staff.text,
       "timestamp": timestamp,
       "Filetype": _pickingType.toString()
     });
+    await DatabaseService(uid: fileID).updateClientFile(ID);
     Navigator.pop(context);
   }
 
@@ -276,13 +281,29 @@ class _AddFileState extends State<AddFile> {
                                         : const SizedBox(),
                           ),
                         ), */
-                        Center(
-                            child: Text("Client Name",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 20,
-                                ))),
+                        SearchableDropdown<dynamic>.single(
+                          //value: global.staff[0].fullName,
+                            items: global.doc.map<DropdownMenuItem<String>>((value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value.split('_')[0]),
+                              );
+                            }).toList(),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                print(newValue);
+                                staff.text = newValue.split('_')[0];
+                                ID = newValue.split('_')[1];
+                              });
+                            },
+                            iconSize: 24,
+                            hint: Text('Please Select whom to send'),
+                            isExpanded: true,
+                            searchHint: new Text(
+                              'Select ',
+                              style: new TextStyle(fontSize: 20),
+                            ),
+                            icon: Icon(Icons.arrow_downward)),
                         SizedBox(height: 5),
                         SizedBox(height: 5),
                         Center(

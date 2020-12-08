@@ -20,6 +20,7 @@ class DatabaseService {
       'email': email,
       'password': password,
       'JoinDate': getCurrentDate(),
+      'files':[],
     });
   }
 
@@ -39,6 +40,11 @@ class DatabaseService {
     return await Firestore.instance.collection(Role).document(global.uid).updateData(<String,dynamic>{
       'fullName':fullname,
       'email':email,
+    });
+  }
+  Future updateClientFile(String ID) async{
+    return  await client.document(ID).updateData(<String,dynamic>{
+      'files': FieldValue.arrayUnion([uid]),
     });
   }
   Future<QuerySnapshot> getUserData(String email,String Role) async {

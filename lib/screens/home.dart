@@ -20,13 +20,14 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String>docum=[];
   void  getadmindetials() async {
     QuerySnapshot staff = await admin.getDocuments();
+    QuerySnapshot cli = await  client.getDocuments();
     print("admin Details");
     print(staff.documents[0].data.toString());
     setState(() {
       staffs =
           staff.documents.map((doc) => UserFirebase.fromDocument(doc)).toList();
     });
-    staff.documents.forEach((result) {
+    cli.documents.forEach((result) {
       setState(() {
         print(result.data['fullName']);
         String s=result.data['fullName'].toString()+'_'+result.documentID;
@@ -34,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
     global.doc=docum;
-
+    print(global.doc);
     List<UserFirebase> data =
     staffs.where((row) => (row.email.contains(global.email))).toList();
     curruser = data[0];
@@ -56,15 +57,15 @@ class _HomeScreenState extends State<HomeScreen> {
       staffs =
           staff.documents.map((doc) => UserFirebase.fromDocument(doc)).toList();
     });
-    staff.documents.forEach((result) {
-      setState(() {
-        print(result.data['fullName']);
-        String s=result.data['fullName'].toString()+'_'+result.documentID;
-        print(s);
-        docum.add(s);
-      });
-    });
-    global.doc=docum;
+    // staff.documents.forEach((result) {
+    //   setState(() {
+    //     print(result.data['fullName']);
+    //     String s=result.data['fullName'].toString()+'_'+result.documentID;
+    //     print(s);
+    //     docum.add(s);
+    //   });
+    // });
+    // global.doc=docum;
    // global.staff = staffs;
     List<UserFirebase> data =
     users.where((row) => (row.email.contains(global.email))).toList();
