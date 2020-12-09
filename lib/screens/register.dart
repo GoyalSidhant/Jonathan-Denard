@@ -96,6 +96,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return _isLoading
         ? Loading():Scaffold(
       appBar: AppBar(
+        toolbarHeight: 5,
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
@@ -108,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: ClipPath(
               clipper: WaveClipperTwo(reverse: true),
               child: Container(
-                  height: height / 3.5,
+                  height: height / 4,
                   width: width,
                   color: Color(0xff14345e),
                   child: Row(
@@ -155,7 +156,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: Colors.grey,
                         fontSize: 15,
                       )),
-                  SizedBox(height: height / 6),
+                  SizedBox(height: height / 7),
                   Form(
                     key: _formKey,
                     child: Center(
