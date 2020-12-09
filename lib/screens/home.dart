@@ -1,28 +1,31 @@
+import 'package:Jonathan_Denard/model/client.dart';
 import 'package:Jonathan_Denard/screens/addfile.dart';
+import 'package:Jonathan_Denard/widgets/adminhome.dart';
+import 'package:Jonathan_Denard/widgets/clienthome.dart';
 import 'package:Jonathan_Denard/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:Jonathan_Denard/global.dart' as global;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:Jonathan_Denard/widgets/firebaseuser.dart';
+
 class HomeScreen extends StatefulWidget {
   int i;
-  HomeScreen({this.i=0});
+  HomeScreen({this.i = 0});
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final CollectionReference admin =
-  Firestore.instance.collection('admin');
-  final CollectionReference client =
-  Firestore.instance.collection('client');
+  final CollectionReference admin = Firestore.instance.collection('admin');
+  final CollectionReference client = Firestore.instance.collection('client');
   UserFirebase curruser;
   List<UserFirebase> users = [];
   List<UserFirebase> staffs = [];
-  List<String>docum=[];
-  void  getadmindetials() async {
+  List<Client> clientfinal = [];
+  List<String> docum = [];
+  void getadmindetials() async {
     QuerySnapshot staff = await admin.getDocuments();
-    QuerySnapshot cli = await  client.getDocuments();
+    QuerySnapshot cli = await client.getDocuments();
     print("admin Details");
     print(staff.documents[0].data.toString());
     setState(() {
@@ -32,20 +35,21 @@ class _HomeScreenState extends State<HomeScreen> {
     cli.documents.forEach((result) {
       setState(() {
         print(result.data['fullName']);
-        String s=result.data['fullName'].toString()+'_'+result.documentID;
+        String s = result.data['fullName'].toString() + '_' + result.documentID;
         docum.add(s);
       });
     });
-    global.doc=docum;
+    global.doc = docum;
     print(global.doc);
     List<UserFirebase> data =
-    staffs.where((row) => (row.email.contains(global.email))).toList();
+        staffs.where((row) => (row.email.contains(global.email))).toList();
     curruser = data[0];
-    if(widget.i==0){
+    if (widget.i == 0) {
       global.name = curruser.fullName;
-      QuerySnapshot q=await admin.where('email', isEqualTo: global.email).getDocuments();
-      global.uid=q.documents[0].documentID;}
-
+      QuerySnapshot q =
+          await admin.where('email', isEqualTo: global.email).getDocuments();
+      global.uid = q.documents[0].documentID;
+    }
   }
 
   void getclient() async {
@@ -61,35 +65,39 @@ class _HomeScreenState extends State<HomeScreen> {
       staffs =
           staff.documents.map((doc) => UserFirebase.fromDocument(doc)).toList();
     });
-    // staff.documents.forEach((result) {
-    //   setState(() {
-    //     print(result.data['fullName']);
-    //     String s=result.data['fullName'].toString()+'_'+result.documentID;
-    //     print(s);
-    //     docum.add(s);
-    //   });
-    // });
-    // global.doc=docum;
-   // global.staff = staffs;
+
     List<UserFirebase> data =
-    users.where((row) => (row.email.contains(global.email))).toList();
+        users.where((row) => (row.email.contains(global.email))).toList();
     curruser = data[0];
-    if(widget.i==0){
+    if (widget.i == 0) {
       global.name = curruser.fullName;
-      QuerySnapshot q=await client.where('email', isEqualTo: global.email).getDocuments();
-      global.uid=q.documents[0].documentID;}
-      print('NAME');
-      print(global.name);
-
-
+      QuerySnapshot q =
+          await client.where('email', isEqualTo: global.email).getDocuments();
+      global.uid = q.documents[0].documentID;
+    }
+    print('NAME');
+    print(global.name);
   }
+
+  getclientlist() async {
+    QuerySnapshot cli = await client.getDocuments();
+
+    setState(() {
+      clientfinal =
+          cli.documents.map((doc) => Client.fromDocument(doc)).toList();
+    });
+    print(clientfinal[0].toString());
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     print(global.role);
-    global.role=='admin'?getadmindetials():getclient();
+    getclientlist();
+    global.role == 'admin' ? getadmindetials() : getclient();
   }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -130,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: FloatingActionButton(
           backgroundColor: Colors.white,
           onPressed: () {
-            global.role != "Client"
+            global.role == "admin"
                 ? Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => AddFile()),
@@ -139,17 +147,17 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           shape: CircleBorder(
               side: BorderSide(color: Color(0xffef4f4e), width: 4.0)),
-          child: global.role == "Client"
+          child: global.role == "client"
               ? Image.asset(
                   'assets/jonathan_denard_app_home_icon.png',
                   height: 120,
                   width: 120,
                 )
               : Icon(
-                    Icons.add,
-                    size: 50,
-                    color: Color(0xffef4f4e),
-                  ),
+                  Icons.add,
+                  size: 50,
+                  color: Color(0xffef4f4e),
+                ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -182,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Hi"+","+global.name,
+                  Text("Hi" + "," + global.name,
                       style: TextStyle(
                           color: Color(0xffef4f4e),
                           fontSize: 30,
@@ -218,44 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: 15),
                   Divider(),
                   SizedBox(height: 15),
-                  Container(
-                    height: height / 2,
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        ListTile(
-                          onTap: () {},
-                          leading: Icon(Icons.folder),
-                          title: Text("client 1"),
-                          trailing: Icon(Icons.more_vert),
-                        ),
-                        Divider(),
-                        ListTile(
-                          leading: Icon(Icons.folder),
-                          title: Text("client 1"),
-                          trailing: Icon(Icons.more_vert),
-                        ),
-                        Divider(),
-                        ListTile(
-                          leading: Icon(Icons.folder),
-                          title: Text("client 1"),
-                          trailing: Icon(Icons.more_vert),
-                        ),
-                        Divider(),
-                        ListTile(
-                          leading: Icon(Icons.folder),
-                          title: Text("client 1"),
-                          trailing: Icon(Icons.more_vert),
-                        ),
-                        Divider(),
-                        ListTile(
-                          leading: Icon(Icons.folder),
-                          title: Text("client 1"),
-                          trailing: Icon(Icons.more_vert),
-                        )
-                      ],
-                    ),
-                  )
+                  global.role == 'admin' ? AdminHome() : ClientHome( global.email) 
                 ],
               ),
             ),
@@ -265,3 +236,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
